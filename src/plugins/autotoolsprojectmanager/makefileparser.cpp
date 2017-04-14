@@ -49,7 +49,7 @@ bool MakefileParser::parse()
 {
     m_mutex.lock();
     m_cancel = false;
-    m_mutex.unlock(),
+    m_mutex.unlock();
 
     m_success = true;
     m_executable.clear();
