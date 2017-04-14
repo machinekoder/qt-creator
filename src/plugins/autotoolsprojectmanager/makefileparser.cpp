@@ -290,6 +290,10 @@ void MakefileParser::parseSubDirs()
         // current sources
         foreach (const QString& source, parser.sources())
             m_sources.append(subDir + slash + source);
+        // also append all include paths and flags from sub directories
+        m_includePaths.append(parser.includePaths());
+        m_cflags.append(parser.cflags());
+        m_cxxflags.append(parser.cxxflags());
 
         // Duplicates might be possible in combination with several
         // "..._SUBDIRS" targets
