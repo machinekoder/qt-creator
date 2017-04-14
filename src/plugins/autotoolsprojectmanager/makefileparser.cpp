@@ -467,10 +467,12 @@ bool MakefileParser::maybeParseInclude(const QString &term, const QString &dirNa
 {
     if (term.startsWith(QLatin1String("-I"))) {
         QString includePath = term.mid(2); // remove the "-I"
-        if (includePath == QLatin1String("."))
-            includePath = dirName;
-        if (!includePath.isEmpty())
-            m_includePaths += includePath;
+        if (!includePath.isEmpty()) {
+            if (QDir::isRelativePath(includePath) && !includePath.contains(QLatin1String("$"))) {
+                includePath = QDir(dirName + "/" + includePath).absolutePath();
+            }
+            m_includePaths << includePath;
+        }
         return true;
     }
     return false;
